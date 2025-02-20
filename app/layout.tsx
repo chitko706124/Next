@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
-import ClientScript from "@/components/ClientScript";
 import Script from "next/script";
 
 const SupabaseProvider = dynamic(() => import("./supabase-provider"), {
