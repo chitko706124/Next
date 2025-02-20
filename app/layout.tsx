@@ -27,6 +27,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {/* <ClientScript /> */}{" "}
+        <meta name="bidvertiser-verification" content="Bidvertiser2098346" />
         <script
           type="text/javascript"
           src="//electricalglimmerexasperate.com/5b/bb/82/5bbb82961dbc52da117babc3dd9c7a3c.js"
