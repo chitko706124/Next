@@ -29,7 +29,7 @@ export default function RootLayout({
         {/* <ClientScript /> */}{" "}
         <script
           type="text/javascript"
-          src="//pl25920468.effectiveratecpm.com/5b/bb/82/5bbb82961dbc52da117babc3dd9c7a3c.js"
+          src="//electricalglimmerexasperate.com/5b/bb/82/5bbb82961dbc52da117babc3dd9c7a3c.js"
           async
         ></script>
         <script
