@@ -28,9 +28,9 @@ export default function RootLayout({
       <head>
         {/* <ClientScript /> */}{" "}
         <script
+          async
           type="text/javascript"
           src="//electricalglimmerexasperate.com/5b/bb/82/5bbb82961dbc52da117babc3dd9c7a3c.js"
-          async
         ></script>
         <script
           async
