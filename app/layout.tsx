@@ -5,7 +5,6 @@ import { Toaster } from "@/components/ui/toaster";
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/ui/navbar";
 import { Footer } from "@/components/ui/footer";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const SupabaseProvider = dynamic(() => import("./supabase-provider"), {
   ssr: false,
@@ -29,7 +28,6 @@ export default function RootLayout({
         <SupabaseProvider>
           <div className="flex flex-col min-h-screen">
             <Navbar />
-            <GoogleAnalytics />
             <main className="flex-grow bg-background">{children}</main>
             <Footer />
           </div>
