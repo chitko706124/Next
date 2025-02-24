@@ -5,10 +5,18 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+// import { useToast } from "@/components/ui/use-toast";
 import { useToast } from "@/hooks/use-toast";
-
 import { TipTapEditor } from "@/components/ui/tiptap-editor";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { Badge } from "@/components/ui/badge";
+import { Tag, X } from "lucide-react";
+
+interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+}
 
 export default function EditPost({ params }: { params: { id: string } }) {
   const [post, setPost] = useState({
@@ -17,22 +25,46 @@ export default function EditPost({ params }: { params: { id: string } }) {
     slug: "",
     thumbnail_url: "",
   });
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const router = useRouter();
   const supabase = createClientComponentClient();
   const { toast } = useToast();
 
   useEffect(() => {
+    const fetchTags = async () => {
+      const { data } = await supabase.from("tags").select("*").order("name");
+
+      setTags(data || []);
+    };
+
+    fetchTags();
+  }, [supabase]);
+
+  useEffect(() => {
     const fetchPost = async () => {
       if (params.id === "new") return;
 
-      const { data } = await supabase
+      const { data: post } = await supabase
         .from("posts")
-        .select("*")
+        .select(
+          `
+          *,
+          post_tags (
+            tags (
+              id,
+              name,
+              slug
+            )
+          )
+        `
+        )
         .eq("id", params.id)
         .single();
 
-      if (data) {
-        setPost(data);
+      if (post) {
+        setPost(post);
+        setSelectedTags(post.post_tags.map((pt: any) => pt.tags.id));
       }
     };
 
@@ -60,23 +92,74 @@ export default function EditPost({ params }: { params: { id: string } }) {
     e.preventDefault();
 
     const isNew = params.id === "new";
-    const { error } = isNew
-      ? await supabase.from("posts").insert([{ ...post, published: false }])
-      : await supabase.from("posts").update(post).eq("id", params.id);
 
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
+    try {
+      // First, insert/update the post
+      const { data: postData, error: postError } = isNew
+        ? await supabase
+            .from("posts")
+            .insert([{ ...post, published: false }])
+            .select()
+            .single()
+        : await supabase
+            .from("posts")
+            .update(post)
+            .eq("id", params.id)
+            .select()
+            .single();
+
+      if (postError) throw postError;
+
+      // Then, handle tags
+      if (isNew) {
+        // For new posts, just insert the selected tags
+        if (selectedTags.length > 0) {
+          const { error: tagError } = await supabase.from("post_tags").insert(
+            selectedTags.map((tagId) => ({
+              post_id: postData.id,
+              tag_id: tagId,
+            }))
+          );
+
+          if (tagError) throw tagError;
+        }
+      } else {
+        // For existing posts, first delete all existing tags
+        await supabase.from("post_tags").delete().eq("post_id", params.id);
+
+        // Then insert the new selection
+        if (selectedTags.length > 0) {
+          const { error: tagError } = await supabase.from("post_tags").insert(
+            selectedTags.map((tagId) => ({
+              post_id: params.id,
+              tag_id: tagId,
+            }))
+          );
+
+          if (tagError) throw tagError;
+        }
+      }
+
       toast({
         title: "Success",
         description: `Post ${isNew ? "created" : "updated"} successfully`,
       });
       router.push("/admin");
+    } catch (error: any) {
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
     }
+  };
+
+  const toggleTag = (tagId: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tagId)
+        ? prev.filter((id) => id !== tagId)
+        : [...prev, tagId]
+    );
   };
 
   return (
@@ -119,6 +202,25 @@ export default function EditPost({ params }: { params: { id: string } }) {
             onChange={(e) => setPost({ ...post, slug: e.target.value })}
             required
           />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2">Tags</label>
+          <div className="flex items-center gap-2 flex-wrap p-4 bg-muted rounded-lg">
+            <Tag className="h-4 w-4 text-muted-foreground" />
+            {tags.map((tag) => (
+              <Badge
+                key={tag.id}
+                variant={
+                  selectedTags.includes(tag.id) ? "default" : "secondary"
+                }
+                className="cursor-pointer"
+                onClick={() => toggleTag(tag.id)}
+              >
+                {tag.name}
+              </Badge>
+            ))}
+          </div>
         </div>
 
         <div>

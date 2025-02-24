@@ -119,8 +119,8 @@ export function Navbar() {
   };
   const links = [
     { href: "/", label: "Home" },
+    // { href: "/content", label: "Content" },
     { href: "/about", label: "About" },
-    { href: "/content", label: "Content" },
     { href: "/contact", label: "Contact" },
     { href: "/privacy", label: "Privacy" },
   ];
