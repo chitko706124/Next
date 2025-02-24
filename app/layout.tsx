@@ -30,7 +30,7 @@ export default function RootLayout({
         <meta name="bidvertiser-verification" content="Bidvertiser2098346" />
         <Script
           strategy="afterInteractive"
-          src={`https://www.popads.net/api/website_code?key=APIKEY&website_id=5178638&aab=1&mb=0.01&ppip=2&db=30&dpd=5&tl=1&of=1`}
+          src={`https://www.popads.net/api/website_code?key=da731cbd64d35af5c955fe71dc10cfbaee59d466&website_id=5178638&aab=1&mb=0.01&ppip=2&db=30&dpd=5&tl=1&of=1`}
         />
       </head>
       <body className={inter.className} suppressHydrationWarning>
