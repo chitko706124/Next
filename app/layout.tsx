@@ -28,16 +28,10 @@ export default function RootLayout({
       <head>
         {/* <ClientScript /> */}{" "}
         <meta name="bidvertiser-verification" content="Bidvertiser2098346" />
-        {/* <script
-          type="text/javascript"
-          src="//electricalglimmerexasperate.com/5b/bb/82/5bbb82961dbc52da117babc3dd9c7a3c.js"
-          async
-        ></script>
-        <script
-          async
-          data-cfasync="false"
-          src="//pl25920512.effectiveratecpm.com/841fc6cde6e92c4531f3519d15ff485b/invoke.js"
-        ></script> */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.popads.net/api/website_code?key=da731cbd64d35af5c955fe71dc10cfbaee59d466&website_id=5178638&tl=auto&aab=1&of=1"
+        />
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <SupabaseProvider>
