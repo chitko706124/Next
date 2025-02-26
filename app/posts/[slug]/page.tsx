@@ -28,6 +28,7 @@ export default async function PostPage({
         <div className="text-muted-foreground max-w-4xl mx-auto px-4 mb-4">
           {new Date(post.created_at).toLocaleDateString()}
         </div>
+
         <div
           style={{
             fontSize: "16px",
@@ -38,6 +39,7 @@ export default async function PostPage({
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </article>
+      <div id="container-841fc6cde6e92c4531f3519d15ff485b"></div>
     </div>
   );
 }
