@@ -33,14 +33,7 @@ export function Footer() {
                   About
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/content"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Content
-                </Link>
-              </li>
+
               <li>
                 <Link
                   href="/contact"
