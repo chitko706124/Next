@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <Script
+        {/* <Script
           id="ad-script-config"
           strategy="lazyOnload"
           dangerouslySetInnerHTML={{
@@ -55,7 +55,7 @@ export default function RootLayout({
           strategy="lazyOnload"
           data-cfasync="false"
           async
-        />
+        /> */}
       </head>
       <body>{children}</body>
     </html>
