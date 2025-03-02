@@ -147,7 +147,7 @@ export default function Home() {
         )}
       </h1>
 
-      <div className="flex flex-col md:flex-row gap-8">
+      <div className="flex flex-col flex-col-reverse md:flex-row gap-8">
         {/* Main Content - 70% */}
         <div className="w-full md:w-[70%]">
           {isLoading ? (
@@ -242,17 +242,43 @@ export default function Home() {
           {isLoading ? (
             <TagsSkeleton />
           ) : (
+            // <div className="bg-card rounded-lg shadow-md p-6 sticky top-4">
+            //   <div className="flex items-center gap-2 mb-4">
+            //     <Tag className="h-5 w-5" />
+            //     <h2 className="text-xl font-semibold">Tags</h2>
+            //   </div>
+            //   <div className="flex flex-wrap gap-2">
+            //     {tags.map((tag) => (
+            //       <Badge
+            //         key={tag.id}
+            //         variant={selectedTag === tag.slug ? "default" : "secondary"}
+            //         className="cursor-pointer"
+            //         onClick={() => handleTagSelect(tag.slug)}
+            //       >
+            //         {tag.name}
+            //       </Badge>
+            //     ))}
+            //   </div>
+            //   {selectedTag && (
+            //     <button
+            //       onClick={() => setSelectedTag(null)}
+            //       className="text-sm text-muted-foreground hover:text-foreground mt-4 underline"
+            //     >
+            //       Clear filter
+            //     </button>
+            //   )}
+            // </div>
             <div className="bg-card rounded-lg shadow-md p-6 sticky top-4">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="hidden md:flex items-center gap-2 mb-4">
                 <Tag className="h-5 w-5" />
                 <h2 className="text-xl font-semibold">Tags</h2>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-nowrap overflow-x-scroll  md:flex-wrap md:overflow-hidden gap-2">
                 {tags.map((tag) => (
                   <Badge
                     key={tag.id}
                     variant={selectedTag === tag.slug ? "default" : "secondary"}
-                    className="cursor-pointer"
+                    className="cursor-pointer inline-block h-fit w-fit"
                     onClick={() => handleTagSelect(tag.slug)}
                   >
                     {tag.name}

