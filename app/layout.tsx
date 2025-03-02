@@ -102,6 +102,13 @@ export default function RootLayout({
           </div>
           <Toaster />
         </SupabaseProvider>
+        <script type="text/javascript">
+          var infolinks_pid = 3433572; var infolinks_wsid = 0;
+        </script>
+        <Script
+          type="text/javascript"
+          src="http://resources.infolinks.com/js/infolinks_main.js"
+        />
       </body>
     </html>
   );
