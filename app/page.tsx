@@ -9,7 +9,7 @@ import { Pagination } from "@/components/ui/pagination";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const POSTS_PER_PAGE = 10;
+const POSTS_PER_PAGE = 1;
 
 interface Tag {
   id: string;
@@ -147,7 +147,7 @@ export default function Home() {
         )}
       </h1>
 
-      <div className="flex flex-col flex-col-reverse md:flex-row gap-8">
+      <div className="flex  flex-col-reverse  md:flex-row gap-8">
         {/* Main Content - 70% */}
         <div className="w-full md:w-[70%]">
           {isLoading ? (
