@@ -7,7 +7,8 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   experimental: {
-    optimizeCss: true, // Enable CSS optimization
+    // Disable CSS optimization to avoid critters issues
+    optimizeCss: false,
   },
   // Disable automatic static optimization for global CSS
   webpack: (config, { isServer }) => {
