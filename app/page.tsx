@@ -134,169 +134,144 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">
-        {isLoading ? (
-          <Skeleton className="h-12 w-64" />
-        ) : selectedTag ? (
-          `Articles tagged with "${
-            tags.find((t) => t.slug === selectedTag)?.name
-          }"`
-        ) : (
-          "All Articles"
-        )}
-      </h1>
+    // <div className="container mx-auto px-4 py-12">
+    //   <h1 className="text-4xl font-bold mb-8">
+    //     {isLoading ? (
+    //       <Skeleton className="h-12 w-64" />
+    //     ) : selectedTag ? (
+    //       `Articles tagged with "${
+    //         tags.find((t) => t.slug === selectedTag)?.name
+    //       }"`
+    //     ) : (
+    //       "All Articles"
+    //     )}
+    //   </h1>
 
-      <div className="flex  flex-col-reverse  md:flex-row gap-8">
-        {/* Main Content - 70% */}
-        <div className="w-full md:w-[70%]">
-          {isLoading ? (
-            <div className="grid gap-8">
-              {Array.from({ length: POSTS_PER_PAGE }).map((_, i) => (
-                <PostSkeleton key={i} />
-              ))}
-            </div>
-          ) : posts.length > 0 ? (
-            <>
-              <div className="grid gap-8">
-                {posts.map((post) => (
-                  <Link key={post.id} href={`/posts/${post.slug}`}>
-                    <article className="group bg-card rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.01]">
-                      <div className="md:flex">
-                        <div className="relative w-full md:w-64 h-48">
-                          {post.thumbnail_url ? (
-                            <Image
-                              src={post.thumbnail_url}
-                              alt={post.title}
-                              fill
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-muted flex items-center justify-center">
-                              <PenSquare className="h-8 w-8 text-muted-foreground" />
-                            </div>
-                          )}
-                        </div>
-                        <div className="p-6 flex-1">
-                          <h2 className="text-2xl font-semibold group-hover:text-primary transition-colors mb-2">
-                            {post.title}
-                          </h2>
-                          <div className="flex gap-2 mb-4">
-                            {post.post_tags
-                              ?.filter((pt: any) => pt.tags)
-                              .map((pt: any) => (
-                                <Badge
-                                  key={pt.tags.id}
-                                  variant={
-                                    pt.tags.slug === selectedTag
-                                      ? "default"
-                                      : "secondary"
-                                  }
-                                  className="cursor-pointer"
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    handleTagSelect(pt.tags.slug);
-                                  }}
-                                >
-                                  {pt.tags.name}
-                                </Badge>
-                              ))}
-                          </div>
-                          <p className="text-muted-foreground text-sm mb-4">
-                            {new Date(post.created_at).toLocaleDateString()}
-                          </p>
-                          <div className="text-muted-foreground line-clamp-3">
-                            {post.content.replace(/<[^>]*>/g, "").slice(0, 200)}
-                            ...
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-                  </Link>
-                ))}
-              </div>
+    //   <div className="flex  flex-col-reverse  md:flex-row gap-8">
+    //     {/* Main Content - 70% */}
+    //     <div className="w-full md:w-[70%]">
+    //       {isLoading ? (
+    //         <div className="grid gap-8">
+    //           {Array.from({ length: POSTS_PER_PAGE }).map((_, i) => (
+    //             <PostSkeleton key={i} />
+    //           ))}
+    //         </div>
+    //       ) : posts.length > 0 ? (
+    //         <>
+    //           <div className="grid gap-8">
+    //             {posts.map((post) => (
+    //               <Link key={post.id} href={`/posts/${post.slug}`}>
+    //                 <article className="group bg-card rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.01]">
+    //                   <div className="md:flex">
+    //                     <div className="relative w-full md:w-64 h-48">
+    //                       {post.thumbnail_url ? (
+    //                         <Image
+    //                           src={post.thumbnail_url}
+    //                           alt={post.title}
+    //                           fill
+    //                           className="object-cover"
+    //                         />
+    //                       ) : (
+    //                         <div className="w-full h-full bg-muted flex items-center justify-center">
+    //                           <PenSquare className="h-8 w-8 text-muted-foreground" />
+    //                         </div>
+    //                       )}
+    //                     </div>
+    //                     <div className="p-6 flex-1">
+    //                       <h2 className="text-2xl font-semibold group-hover:text-primary transition-colors mb-2">
+    //                         {post.title}
+    //                       </h2>
+    //                       <div className="flex gap-2 mb-4">
+    //                         {post.post_tags
+    //                           ?.filter((pt: any) => pt.tags)
+    //                           .map((pt: any) => (
+    //                             <Badge
+    //                               key={pt.tags.id}
+    //                               variant={
+    //                                 pt.tags.slug === selectedTag
+    //                                   ? "default"
+    //                                   : "secondary"
+    //                               }
+    //                               className="cursor-pointer"
+    //                               onClick={(e) => {
+    //                                 e.preventDefault();
+    //                                 handleTagSelect(pt.tags.slug);
+    //                               }}
+    //                             >
+    //                               {pt.tags.name}
+    //                             </Badge>
+    //                           ))}
+    //                       </div>
+    //                       <p className="text-muted-foreground text-sm mb-4">
+    //                         {new Date(post.created_at).toLocaleDateString()}
+    //                       </p>
+    //                       <div className="text-muted-foreground line-clamp-3">
+    //                         {post.content.replace(/<[^>]*>/g, "").slice(0, 200)}
+    //                         ...
+    //                       </div>
+    //                     </div>
+    //                   </div>
+    //                 </article>
+    //               </Link>
+    //             ))}
+    //           </div>
 
-              {totalPages > 1 && (
-                <div className="mt-8">
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onPageChange={handlePageChange}
-                  />
-                </div>
-              )}
-            </>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">
-                {selectedTag
-                  ? "No articles found with this tag."
-                  : "No articles available yet."}
-              </p>
-            </div>
-          )}
-        </div>
+    //           {totalPages > 1 && (
+    //             <div className="mt-8">
+    //               <Pagination
+    //                 currentPage={currentPage}
+    //                 totalPages={totalPages}
+    //                 onPageChange={handlePageChange}
+    //               />
+    //             </div>
+    //           )}
+    //         </>
+    //       ) : (
+    //         <div className="text-center py-12">
+    //           <p className="text-muted-foreground">
+    //             {selectedTag
+    //               ? "No articles found with this tag."
+    //               : "No articles available yet."}
+    //           </p>
+    //         </div>
+    //       )}
+    //     </div>
 
-        {/* Tags Sidebar - 30% */}
-        <div className="w-full md:w-[30%]">
-          {isLoading ? (
-            <TagsSkeleton />
-          ) : (
-            // <div className="bg-card rounded-lg shadow-md p-6 sticky top-4">
-            //   <div className="flex items-center gap-2 mb-4">
-            //     <Tag className="h-5 w-5" />
-            //     <h2 className="text-xl font-semibold">Tags</h2>
-            //   </div>
-            //   <div className="flex flex-wrap gap-2">
-            //     {tags.map((tag) => (
-            //       <Badge
-            //         key={tag.id}
-            //         variant={selectedTag === tag.slug ? "default" : "secondary"}
-            //         className="cursor-pointer"
-            //         onClick={() => handleTagSelect(tag.slug)}
-            //       >
-            //         {tag.name}
-            //       </Badge>
-            //     ))}
-            //   </div>
-            //   {selectedTag && (
-            //     <button
-            //       onClick={() => setSelectedTag(null)}
-            //       className="text-sm text-muted-foreground hover:text-foreground mt-4 underline"
-            //     >
-            //       Clear filter
-            //     </button>
-            //   )}
-            // </div>
-            <div className="bg-card rounded-lg shadow-md p-6 sticky top-4">
-              <div className="hidden md:flex items-center gap-2 mb-4">
-                <Tag className="h-5 w-5" />
-                <h2 className="text-xl font-semibold">Tags</h2>
-              </div>
-              <div className="flex flex-nowrap overflow-x-scroll  md:flex-wrap md:overflow-hidden gap-2">
-                {tags.map((tag) => (
-                  <Badge
-                    key={tag.id}
-                    variant={selectedTag === tag.slug ? "default" : "secondary"}
-                    className="cursor-pointer inline-block h-fit w-fit"
-                    onClick={() => handleTagSelect(tag.slug)}
-                  >
-                    {tag.name}
-                  </Badge>
-                ))}
-              </div>
-              {selectedTag && (
-                <button
-                  onClick={() => setSelectedTag(null)}
-                  className="text-sm text-muted-foreground hover:text-foreground mt-4 underline"
-                >
-                  Clear filter
-                </button>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+    //     {/* Tags Sidebar - 30% */}
+    //     <div className="w-full md:w-[30%]">
+    //       {isLoading ? (
+    //         <TagsSkeleton />
+    //       ) : (
+    //         <div className="bg-card rounded-lg shadow-md p-6 sticky top-4">
+    //           <div className="hidden md:flex items-center gap-2 mb-4">
+    //             <Tag className="h-5 w-5" />
+    //             <h2 className="text-xl font-semibold">Tags</h2>
+    //           </div>
+    //           <div className="flex flex-nowrap overflow-x-scroll  md:flex-wrap md:overflow-hidden gap-2">
+    //             {tags.map((tag) => (
+    //               <Badge
+    //                 key={tag.id}
+    //                 variant={selectedTag === tag.slug ? "default" : "secondary"}
+    //                 className="cursor-pointer inline-block h-fit w-fit"
+    //                 onClick={() => handleTagSelect(tag.slug)}
+    //               >
+    //                 {tag.name}
+    //               </Badge>
+    //             ))}
+    //           </div>
+    //           {selectedTag && (
+    //             <button
+    //               onClick={() => setSelectedTag(null)}
+    //               className="text-sm text-muted-foreground hover:text-foreground mt-4 underline"
+    //             >
+    //               Clear filter
+    //             </button>
+    //           )}
+    //         </div>
+    //       )}
+    //     </div>
+    //   </div>
+    // </div>
+    <div>hello</div>
   );
 }
