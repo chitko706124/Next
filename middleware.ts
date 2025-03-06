@@ -22,7 +22,6 @@ export async function middleware(req: NextRequest) {
 
   // Handle CORS for API routes
   if (req.nextUrl.pathname.startsWith("/api/")) {
-    // Set the CORS headers for API routes
     res.headers.set("Access-Control-Allow-Origin", "*");
     res.headers.set(
       "Access-Control-Allow-Methods",
@@ -33,7 +32,7 @@ export async function middleware(req: NextRequest) {
       "Content-Type, Authorization"
     );
 
-    // Handle preflight requests
+    // Handle preflight requests (OPTIONS)
     if (req.method === "OPTIONS") {
       return new NextResponse(null, {
         status: 204,
