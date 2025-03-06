@@ -10,7 +10,7 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  // Protect admin routes
+  // ✅ Protect admin routes
   if (
     req.nextUrl.pathname.startsWith("/admin") &&
     req.nextUrl.pathname !== "/admin/login"
@@ -20,9 +20,11 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  // Handle CORS for API routes
+  // ✅ Handle CORS for API routes
   if (req.nextUrl.pathname.startsWith("/api/")) {
-    res.headers.set("Access-Control-Allow-Origin", "*");
+    const allowedOrigin = req.headers.get("origin") || "http://localhost:5173"; // Set allowed origin dynamically
+
+    res.headers.set("Access-Control-Allow-Origin", allowedOrigin);
     res.headers.set(
       "Access-Control-Allow-Methods",
       "GET, POST, PUT, DELETE, OPTIONS"
@@ -31,20 +33,23 @@ export async function middleware(req: NextRequest) {
       "Access-Control-Allow-Headers",
       "Content-Type, Authorization"
     );
+    res.headers.set("Access-Control-Allow-Credentials", "true"); // ✅ Allow credentials
 
-    // Handle preflight requests (OPTIONS)
+    // ✅ Handle preflight requests (OPTIONS)
     if (req.method === "OPTIONS") {
       return new NextResponse(null, {
         status: 204,
         headers: res.headers,
       });
     }
+
+    return res; // ✅ Return the modified response
   }
 
   return res;
 }
 
-// Configure the middleware to run for API routes and admin routes
+// ✅ Apply middleware to admin and API routes
 export const config = {
   matcher: ["/admin/:path*", "/api/:path*"],
 };
