@@ -133,6 +133,13 @@ export default function Home() {
     setSelectedTag(selectedTag === tagSlug ? null : tagSlug);
   };
 
+  const [clicked, setClicked] = useState(false);
+
+  const handleClick = () => {
+    setClicked(true);
+    alert("Button clicked!");
+  };
+
   return (
     // <div className="container mx-auto px-4 py-12">
     //   <h1 className="text-4xl font-bold mb-8">
@@ -272,6 +279,21 @@ export default function Home() {
     //     </div>
     //   </div>
     // </div>
-    <div>hello</div>
+    <div>
+      <button
+        id="12"
+        onClick={handleClick}
+        style={{
+          backgroundColor: clicked ? "green" : "blue",
+          color: "white",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Click
+      </button>
+    </div>
   );
 }
